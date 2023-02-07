@@ -3,11 +3,11 @@ from pygame import Vector2
 
 from src.player import Player
 
-SPEED = 1e-2
-
 
 def main():
-    screen = pygame.display.set_mode((512, 512))
+    # Create a screen, a clock and a player
+    SCREEN = pygame.display.set_mode((512, 512))
+    CLOCK = pygame.time.Clock()
     player = Player()
 
     pygame.display.set_caption("School game")
@@ -15,30 +15,25 @@ def main():
     running = True
 
     while running:
+        # Test for quit
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
-        update_velocity(player)
+        player.update_velocity()
         player.update()
 
-        screen.fill((100, 100, 200))
-        player.draw(screen)
+        # Fill the screen
+        SCREEN.fill((100, 100, 200))
+
+        # Draw the player
+        player.draw(SCREEN)
+
+        # Update the display
         pygame.display.flip()
 
-
-def update_velocity(player):
-    keys = pygame.key.get_pressed()
-
-    if keys[pygame.K_LEFT]:
-        player.velocity.x -= SPEED
-    if keys[pygame.K_RIGHT]:
-        player.velocity.x += SPEED
-
-    if keys[pygame.K_UP]:
-        player.velocity.y -= SPEED
-    if keys[pygame.K_DOWN]:
-        player.velocity.y += SPEED
+        # Run at 60 FPS
+        CLOCK.tick(60)
 
 
 if __name__ == '__main__':
