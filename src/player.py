@@ -1,32 +1,36 @@
 import pygame
 from pygame import Vector2
 
+from src.constants import *
+
 
 class Player:
     SIZE = 10
     SPEED = 1
 
     def __init__(self):
+        self.destination = Vector2(0, 0)
         self.position = Vector2(0, 0)
-        self.velocity = Vector2(0, 0)
 
     def get_inputs(self):
-        keys = pygame.key.get_pressed()
+        if pygame.mouse.get_pressed()[0]:
+            mouse_pos = pygame.mouse.get_pos()
+            position = Vector2(
+                mouse_pos[0] // TILE_SIZE,
+                mouse_pos[1] // TILE_SIZE
+            )
 
-        if keys[pygame.K_LEFT]:
-            self.velocity.x -= self.SPEED
-        if keys[pygame.K_RIGHT]:
-            self.velocity.x += self.SPEED
+            if position == WALL:
+                return
 
-        if keys[pygame.K_UP]:
-            self.velocity.y -= self.SPEED
-        if keys[pygame.K_DOWN]:
-            self.velocity.y += self.SPEED
+            position *= TILE_SIZE
+            position.x += TILE_SIZE / 2
+            position.y += TILE_SIZE / 2
+
+            self.destination = position
 
     def update(self):
-        self.position += self.velocity
-
-        self.velocity *= 0.01
+        self.position = self.position.lerp(self.destination, 0.1)
 
     def draw(self, screen: pygame.Surface):
         pygame.draw.circle(screen, [100, 10, 30], self.position, self.SIZE)

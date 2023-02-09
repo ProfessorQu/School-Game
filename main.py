@@ -1,12 +1,13 @@
 import pygame
 from pygame import Vector2
+from src.constants import *
 
 from src.player import Player
 
 
 def main():
     # Create a screen, a clock and a player
-    SCREEN = pygame.display.set_mode((512, 512))
+    SCREEN = pygame.display.set_mode((SCREEN_HEIGHT, SCREEN_WIDTH))
     CLOCK = pygame.time.Clock()
     player = Player()
 
@@ -26,8 +27,27 @@ def main():
         # Fill the screen
         SCREEN.fill((100, 100, 200))
 
+        for x in range(0, SCREEN_HEIGHT, TILE_SIZE):
+            pygame.draw.line(
+                SCREEN,
+                (200, 200, 200),
+                [x, 0],
+                [x, SCREEN_HEIGHT]
+            )
+
+        for y in range(0, SCREEN_HEIGHT, TILE_SIZE):
+            pygame.draw.line(
+                SCREEN,
+                (200, 200, 200),
+                [0, y],
+                [SCREEN_WIDTH, y]
+            )
+
         # Draw the player
         player.draw(SCREEN)
+
+        pygame.draw.rect(SCREEN, (0, 0, 0), [
+                         WALL.x * TILE_SIZE, WALL.y * TILE_SIZE, TILE_SIZE, TILE_SIZE])
 
         # Update the display
         pygame.display.flip()
