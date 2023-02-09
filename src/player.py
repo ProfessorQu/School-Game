@@ -41,9 +41,12 @@ class Player:
         """Update the position of the player
         """
         if self.traveled < 1:
-            self.screen_position = self.convert_to_screen(
-                self.start_position.lerp(self.destination, self.traveled)
+            new_position = self.start_position.lerp(
+                self.destination,
+                self.traveled
             )
+
+            self.screen_position = self.convert_to_screen(new_position)
 
             self.traveled += self.SPEED
         else:
@@ -76,7 +79,7 @@ class Player:
             vec[1] // TILE_SIZE
         )
 
-    def convert_to_screen(self, vec: Vector2) -> Vector2:
+    def convert_to_screen(self, vec: Union[Vector2, Tuple[int, int]]) -> Vector2:
         """Convert the tilemap coordinates to screen coordinates
 
         Args:
@@ -85,12 +88,12 @@ class Player:
         Returns:
             Vector2: the screen coordinates
         """
-        new = Vector2(vec.x, vec.y)
+        new = pygame.math.Vector2(vec[0], vec[1])
         new *= TILE_SIZE
         new.x += TILE_SIZE / 2
         new.y += TILE_SIZE / 2
 
-        return new
+        return pygame.Vector2(new)
 
     @property
     def tilemap_position(self) -> Vector2:

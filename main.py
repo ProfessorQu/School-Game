@@ -1,7 +1,7 @@
 import pygame
 from pygame import Vector2
-from src.constants import *
 
+from src.constants import *
 from src.player import Player
 
 
