@@ -1,3 +1,4 @@
+from typing import Tuple, Union
 import pygame
 from pygame import Vector2
 
@@ -6,31 +7,52 @@ from src.constants import *
 
 class Player:
     SIZE = 10
-    SPEED = 1
+    SPEED = 0.1
 
     def __init__(self):
+        self.start_position = Vector2(0, 0)
         self.destination = Vector2(0, 0)
-        self.position = Vector2(0, 0)
+        self.screen_position = Vector2(0, 0)
+
+        self.traveled = 0
 
     def get_inputs(self):
-        if pygame.mouse.get_pressed()[0]:
-            mouse_pos = pygame.mouse.get_pos()
-            position = Vector2(
-                mouse_pos[0] // TILE_SIZE,
-                mouse_pos[1] // TILE_SIZE
-            )
-
-            if position == WALL:
+        if pygame.mouse.get_pressed()[0] and self.traveled >= 1:
+            tilemap_position = self.convert_to_tilemap(
+                pygame.mouse.get_pos())
+            if tilemap_position == WALL:
                 return
 
-            position *= TILE_SIZE
-            position.x += TILE_SIZE / 2
-            position.y += TILE_SIZE / 2
-
-            self.destination = position
+            self.destination = self.convert_to_screen(tilemap_position)
+            self.start_position = self.screen_position
+            self.traveled = 0
 
     def update(self):
-        self.position = self.position.lerp(self.destination, 0.1)
+        if self.traveled < 1:
+            self.screen_position = self.start_position.lerp(
+                self.destination, self.traveled)
+
+            self.traveled += self.SPEED
+        else:
+            self.screen_position = self.destination
 
     def draw(self, screen: pygame.Surface):
-        pygame.draw.circle(screen, [100, 10, 30], self.position, self.SIZE)
+        pygame.draw.circle(
+            screen,
+            [100, 10, 30],
+            self.screen_position,
+            self.SIZE
+        )
+
+    def convert_to_tilemap(self, vec: Union[Vector2, Tuple[int, int]]) -> Vector2:
+        return Vector2(
+            vec[0] // TILE_SIZE,
+            vec[1] // TILE_SIZE
+        )
+
+    def convert_to_screen(self, vec: Vector2) -> Vector2:
+        vec *= TILE_SIZE
+        vec.x += TILE_SIZE / 2
+        vec.y += TILE_SIZE / 2
+
+        return vec
