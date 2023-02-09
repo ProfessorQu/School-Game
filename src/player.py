@@ -1,3 +1,4 @@
+from math import pi, sin
 from typing import Tuple, Union
 import pygame
 from pygame import Vector2
@@ -10,33 +11,50 @@ class Player:
     SPEED = 0.1
 
     def __init__(self):
+        """Initialize the player
+        """
+        # The position when you start moving
         self.start_position = Vector2(0, 0)
+        # The destination clicked on
         self.destination = Vector2(0, 0)
+        # The screen position of the player
         self.screen_position = Vector2(0, 0)
 
+        # A variable to keep track of the amount traveled from start_position to destination
         self.traveled = 0
 
     def get_inputs(self):
+        """Get the inputs for the player to determine movement
+        """
+        # If the mouse is pressed and the destination reached
         if pygame.mouse.get_pressed()[0] and self.traveled >= 1:
-            tilemap_position = self.convert_to_tilemap(
-                pygame.mouse.get_pos())
+            # Get a new destination on the tilemap
+            tilemap_position = self.convert_to_tilemap(pygame.mouse.get_pos())
             if tilemap_position == WALL:
                 return
 
-            self.destination = self.convert_to_screen(tilemap_position)
-            self.start_position = self.screen_position
+            self.destination = tilemap_position
+            self.start_position = self.tilemap_position
             self.traveled = 0
 
     def update(self):
+        """Update the position of the player
+        """
         if self.traveled < 1:
-            self.screen_position = self.start_position.lerp(
-                self.destination, self.traveled)
+            self.screen_position = self.convert_to_screen(
+                self.start_position.lerp(self.destination, self.traveled)
+            )
 
             self.traveled += self.SPEED
         else:
-            self.screen_position = self.destination
+            self.screen_position = self.convert_to_screen(self.destination)
 
     def draw(self, screen: pygame.Surface):
+        """Draws the player to the screen
+
+        Args:
+            screen (pygame.Surface): the surface to draw on (always screen)
+        """
         pygame.draw.circle(
             screen,
             [100, 10, 30],
@@ -45,14 +63,40 @@ class Player:
         )
 
     def convert_to_tilemap(self, vec: Union[Vector2, Tuple[int, int]]) -> Vector2:
+        """Convert the screen coordinates to tilemap coordinates
+
+        Args:
+            vec (Union[Vector2, Tuple[int, int]]): the screen coordinates
+
+        Returns:
+            Vector2: the tilemap coordinates
+        """
         return Vector2(
             vec[0] // TILE_SIZE,
             vec[1] // TILE_SIZE
         )
 
     def convert_to_screen(self, vec: Vector2) -> Vector2:
-        vec *= TILE_SIZE
-        vec.x += TILE_SIZE / 2
-        vec.y += TILE_SIZE / 2
+        """Convert the tilemap coordinates to screen coordinates
 
-        return vec
+        Args:
+            vec (Union[Vector2, Tuple[int, int]]): the tilemap coordinates
+
+        Returns:
+            Vector2: the screen coordinates
+        """
+        new = Vector2(vec.x, vec.y)
+        new *= TILE_SIZE
+        new.x += TILE_SIZE / 2
+        new.y += TILE_SIZE / 2
+
+        return new
+
+    @property
+    def tilemap_position(self) -> Vector2:
+        """Returns the current tilemap position
+
+        Returns:
+            Vector2: the position in the tilemap of the player
+        """
+        return self.convert_to_tilemap(self.screen_position)
