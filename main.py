@@ -20,7 +20,7 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-        player.update_velocity()
+        player.get_inputs()
         player.update()
 
         # Fill the screen

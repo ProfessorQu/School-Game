@@ -10,7 +10,7 @@ class Player:
         self.position = Vector2(0, 0)
         self.velocity = Vector2(0, 0)
 
-    def update_velocity(self):
+    def get_inputs(self):
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_LEFT]:
