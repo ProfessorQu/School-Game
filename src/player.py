@@ -6,7 +6,7 @@ class Player:
     SIZE = 10
     SPEED = 1
 
-    def __init__(self) -> None:
+    def __init__(self):
         self.position = Vector2(0, 0)
         self.velocity = Vector2(0, 0)
 
@@ -23,10 +23,10 @@ class Player:
         if keys[pygame.K_DOWN]:
             self.velocity.y += self.SPEED
 
-    def update(self) -> None:
+    def update(self):
         self.position += self.velocity
 
         self.velocity *= 0.01
 
-    def draw(self, screen: pygame.Surface) -> None:
+    def draw(self, screen: pygame.Surface):
         pygame.draw.circle(screen, [100, 10, 30], self.position, self.SIZE)
