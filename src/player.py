@@ -14,9 +14,12 @@ class Player:
         """Initialize the player
         """
         # The position when you start moving
-        self.start_position = Vector2(0, 0)
+        self.start_position = Vector2(
+            SCREEN_WIDTH / TILE_SIZE / 2,
+            SCREEN_HEIGHT / TILE_SIZE / 2
+        )
         # The destination clicked on
-        self.destination = Vector2(0, 0)
+        self.destination = self.start_position
         # The screen position of the player
         self.screen_position = Vector2(0, 0)
 
@@ -30,7 +33,7 @@ class Player:
         if pygame.mouse.get_pressed()[0] and self.traveled >= 1:
             # Get a new destination on the tilemap
             tilemap_position = self.convert_to_tilemap(pygame.mouse.get_pos())
-            if tilemap_position == WALL:
+            if tilemap_position in WALLS:
                 return
 
             self.destination = tilemap_position
