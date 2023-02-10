@@ -47,14 +47,16 @@ def main():
         player.draw(SCREEN)
 
         for wall in WALLS:
-            pygame.draw.rect(SCREEN,
-                             (0, 0, 0),
-                             [
-                                 wall.x * TILE_SIZE,
-                                 wall.y * TILE_SIZE,
-                                 TILE_SIZE,
-                                 TILE_SIZE
-                             ])
+            pygame.draw.rect(
+                SCREEN,
+                (100, 100, 100),
+                [
+                    wall.x * TILE_SIZE,
+                    wall.y * TILE_SIZE,
+                    TILE_SIZE,
+                    TILE_SIZE
+                ]
+            )
 
         # Update the display
         pygame.display.flip()
