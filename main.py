@@ -7,7 +7,7 @@ from src.player import Player
 
 def main():
     # Create a screen, a clock and a player
-    SCREEN = pygame.display.set_mode((SCREEN_HEIGHT, SCREEN_WIDTH))
+    SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     CLOCK = pygame.time.Clock()
     player = Player()
 
@@ -15,24 +15,26 @@ def main():
 
     running = True
 
+    current_room = ROOM1
+
     while running:
         # Test for quit
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
-        player.get_inputs()
-        player.update()
+        player.get_inputs(current_room)
+        current_room = player.update(current_room)
 
         # Fill the screen
         SCREEN.fill((100, 100, 200))
 
-        for x in range(0, SCREEN_HEIGHT, TILE_SIZE):
+        for x in range(0, SCREEN_WIDTH, TILE_SIZE):
             pygame.draw.line(
                 SCREEN,
                 (200, 200, 200),
                 [x, 0],
-                [x, SCREEN_HEIGHT]
+                [x, SCREEN_WIDTH]
             )
 
         for y in range(0, SCREEN_HEIGHT, TILE_SIZE):
@@ -46,7 +48,7 @@ def main():
         # Draw the player
         player.draw(SCREEN)
 
-        for wall in WALLS:
+        for wall in current_room:
             pygame.draw.rect(
                 SCREEN,
                 (100, 100, 100),

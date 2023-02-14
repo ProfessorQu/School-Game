@@ -26,21 +26,21 @@ class Player:
         # A variable to keep track of the amount traveled from start_position to destination
         self.traveled = 0
 
-    def get_inputs(self):
+    def get_inputs(self, current_room):
         """Get the inputs for the player to determine movement
         """
         # If the mouse is pressed and the destination reached
         if pygame.mouse.get_pressed()[0] and self.traveled >= 1:
             # Get a new destination on the tilemap
             tilemap_position = self.convert_to_tilemap(pygame.mouse.get_pos())
-            if tilemap_position in WALLS:
+            if tilemap_position in current_room:
                 return
 
             self.destination = tilemap_position
             self.start_position = self.tilemap_position
             self.traveled = 0
 
-    def update(self):
+    def update(self, current_room):
         """Update the position of the player
         """
         if self.traveled < 1:
@@ -50,10 +50,16 @@ class Player:
             )
 
             self.screen_position = self.convert_to_screen(new_position)
-
             self.traveled += self.SPEED
+
+            if new_position.x > GRID_WIDTH - 2:
+                return ROOM2
+            elif new_position.x < 1:
+                return ROOM1
         else:
             self.screen_position = self.convert_to_screen(self.destination)
+        
+        return current_room
 
     def draw(self, screen: pygame.Surface):
         """Draws the player to the screen
@@ -63,7 +69,7 @@ class Player:
         """
         pygame.draw.circle(
             screen,
-            [100, 10, 30],
+            [200, 10, 30],
             self.screen_position,
             self.SIZE
         )
