@@ -33,14 +33,14 @@ class Player:
         if pygame.mouse.get_pressed()[0] and self.traveled >= 1:
             # Get a new destination on the tilemap
             tilemap_position = self.convert_to_tilemap(pygame.mouse.get_pos())
-            if tilemap_position in current_room:
+            if tilemap_position in current_room.walls:
                 return
 
             self.destination = tilemap_position
             self.start_position = self.tilemap_position
             self.traveled = 0
 
-    def update(self, current_room):
+    def update(self, level: Level):
         """Update the position of the player
         """
         if self.traveled < 1:
@@ -52,15 +52,19 @@ class Player:
             self.screen_position = self.convert_to_screen(new_position)
             self.traveled += self.SPEED
 
+            # Check x position
             if new_position.x > GRID_WIDTH - 2:
-                return ROOM2
+                level.move_room(1, 0)
             elif new_position.x < 1:
-                return ROOM1
+                level.move_room(-1, 0)
+            # Check y position
+            elif new_position.y > GRID_HEIGHT - 2:
+                level.move_room(0, -1)
+            elif new_position.y < 1:
+                level.move_room(0, 1)
         else:
             self.screen_position = self.convert_to_screen(self.destination)
         
-        return current_room
-
     def draw(self, screen: pygame.Surface):
         """Draws the player to the screen
 

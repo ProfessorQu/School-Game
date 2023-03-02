@@ -15,7 +15,16 @@ def main():
 
     running = True
 
-    current_room = ROOM1
+    level = Level(
+        [
+            Room(0, 0, [
+                Vector2(x, y) for x in range(5) for y in range(3)
+            ]),
+            Room(1, 0, [
+                Vector2(x, y) for x in range(10) for y in range(3, 5)
+            ])
+        ]
+    )
 
     while running:
         # Test for quit
@@ -23,8 +32,8 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-        player.get_inputs(current_room)
-        current_room = player.update(current_room)
+        player.get_inputs(level.current_room)
+        player.update(level)
 
         # Fill the screen
         SCREEN.fill((100, 100, 200))
@@ -48,7 +57,7 @@ def main():
         # Draw the player
         player.draw(SCREEN)
 
-        for wall in current_room:
+        for wall in level.current_room.walls:
             pygame.draw.rect(
                 SCREEN,
                 (100, 100, 100),
