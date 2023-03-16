@@ -22,9 +22,6 @@ def main():
             ]),
             Room(1, 0, [
                 Vector2(x, y) for x in range(10) for y in range(5)
-            ]),
-            Room(2, 0, [
-                Vector2(x, y) for x in range(5, 15) for y in range(10, 15)
             ])
         ]
     )
