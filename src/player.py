@@ -63,8 +63,6 @@ class Player:
             elif new_position.y < 1:
                 level.move_room(0, 1)
         else:
-
-            
             self.screen_position = self.convert_to_screen(self.destination)
         
     def draw(self, screen: pygame.Surface):
