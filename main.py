@@ -4,6 +4,8 @@ from pygame import Vector2
 from src.constants import *
 from src.player import Player
 
+# Code die lars heeft geschreven
+
 def main():
     # Create a screen, a clock and a player
     SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
