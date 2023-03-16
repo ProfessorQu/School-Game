@@ -10,12 +10,15 @@ class Level:
         self.current_room_x = 0
         self.current_room_y = 0
 
-    def move_room(self, x, y):
+    def move_room(self, x, y) -> bool:
         """Move the current room with an offset of x and y
 
         Args:
             x (int): the distance to move the room in the x-axis
             y (int): the distance to move the room in the y-axis
+
+        Returns:
+            bool: returns True if successfully moved a room
         """
         new_room_x = self.current_room_x + x
         new_room_y = self.current_room_y + y
@@ -25,7 +28,9 @@ class Level:
                 self.current_room_x = new_room_x
                 self.current_room_y = new_room_y
 
-                break
+                return True
+        
+        return False
 
     @property
     def current_room(self):
