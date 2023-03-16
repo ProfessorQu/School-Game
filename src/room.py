@@ -1,5 +1,9 @@
+import pygame
+
+from src.constants import *
+
 class Room:
-    def __init__(self, x, y, walls) -> None:
+    def __init__(self, x, y, walls, npcs) -> None:
         """Initialize Room
 
         Args:
@@ -11,3 +15,17 @@ class Room:
         self.y = y
 
         self.walls = walls
+        self.npcs = npcs
+    
+    def draw(self, screen):
+        for wall in self.walls:
+            pygame.draw.rect(
+                screen,
+                (100, 100, 100),
+                [
+                    wall.x * TILE_SIZE,
+                    wall.y * TILE_SIZE,
+                    TILE_SIZE,
+                    TILE_SIZE
+                ]
+            )
