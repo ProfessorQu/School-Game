@@ -3,7 +3,7 @@ from pygame import Vector2
 
 from src.constants import *
 from src.player import Player
-
+p
 
 def main():
     # Create a screen, a clock and a player
