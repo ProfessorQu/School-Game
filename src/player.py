@@ -1,15 +1,17 @@
-from math import pi, sin
-from typing import Tuple, Union
 import pygame
 from pygame import Vector2
 from src import utils
 
 from src.constants import *
+from src.level import Level
+from src.room import Room
 
 
 class Player:
     SIZE = 10
     SPEED = 0.1
+
+    MOVE_ROOM_COOLDOWN = 100
 
     def __init__(self):
         """Initialize the player
@@ -27,7 +29,10 @@ class Player:
         # A variable to keep track of the amount traveled from start_position to destination
         self.traveled = 0
 
-    def get_inputs(self, current_room):
+        # A timer to keep track of moving through rooms
+        self.move_room_timer = self.MOVE_ROOM_COOLDOWN
+
+    def get_inputs(self, current_room: Room):
         """Get the inputs for the player to determine movement
         """
         # If the mouse is pressed and the destination reached
@@ -44,6 +49,9 @@ class Player:
     def update(self, level: Level):
         """Update the position of the player
         """
+        if self.move_room_timer > 0:
+            self.move_room_timer -= 1
+
         if self.traveled < 1:
             new_position = self.start_position.lerp(
                 self.destination,
@@ -65,6 +73,19 @@ class Player:
                 level.move_room(0, 1)
         else:
             self.screen_position = utils.convert_to_screen(self.destination)
+
+        # Test for movement time
+        if self.move_room_timer <= 0:
+            # Check x position
+            if self.tilemap_position.x > GRID_WIDTH - 2 and level.move_room(1, 0):
+                self.move_room_timer = self.MOVE_ROOM_COOLDOWN
+            elif self.tilemap_position.x < 1 and level.move_room(-1, 0):
+                self.move_room_timer = self.MOVE_ROOM_COOLDOWN
+            # Check y position
+            elif self.tilemap_position.y > GRID_HEIGHT - 2 and level.move_room(0, -1):
+                self.move_room_timer = self.MOVE_ROOM_COOLDOWN
+            elif self.tilemap_position.y < 1 and level.move_room(0, 1):
+                self.move_room_timer = self.MOVE_ROOM_COOLDOWN
         
     def draw(self, screen: pygame.Surface):
         """Draws the player to the screen

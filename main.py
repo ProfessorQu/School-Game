@@ -4,6 +4,8 @@ from pygame import Vector2
 from src.constants import *
 from src.player import Player
 from src.npc import NPC
+from src.level import Level
+from src.room import Room
 
 
 def main():

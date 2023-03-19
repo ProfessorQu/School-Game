@@ -1,8 +1,3 @@
-from pygame import Vector2
-from src.level import Level
-
-from src.room import Room
-
 TILE_SIZE = 50
 
 GRID_HEIGHT = 14

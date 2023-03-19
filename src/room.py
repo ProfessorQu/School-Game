@@ -1,9 +1,12 @@
 import pygame
+from pygame import Vector2
+
+from typing import List
 
 from src.constants import *
 
 class Room:
-    def __init__(self, x, y, walls, npcs) -> None:
+    def __init__(self, x: int, y: int, walls: List[Vector2], npcs) -> None:
         """Initialize Room
 
         Args:
@@ -17,15 +20,15 @@ class Room:
         self.walls = walls
         self.npcs = npcs
     
-    def draw(self, screen):
+    def draw(self, screen: pygame.Surface):
         for wall in self.walls:
             pygame.draw.rect(
                 screen,
                 (100, 100, 100),
-                [
+                pygame.Rect(
                     wall.x * TILE_SIZE,
                     wall.y * TILE_SIZE,
                     TILE_SIZE,
                     TILE_SIZE
-                ]
+                )
             )

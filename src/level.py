@@ -1,5 +1,9 @@
+from typing import List
+
+from src.room import Room
+
 class Level:
-    def __init__(self, rooms) -> None:
+    def __init__(self, rooms: List[Room]) -> None:
         """Initialize level
 
         Args:
@@ -10,7 +14,7 @@ class Level:
         self.current_room_x = 0
         self.current_room_y = 0
 
-    def move_room(self, x, y):
+    def move_room(self, x: int, y: int) -> bool:
         """Move the current room with an offset of x and y
 
         Args:
@@ -25,7 +29,9 @@ class Level:
                 self.current_room_x = new_room_x
                 self.current_room_y = new_room_y
 
-                break
+                return True
+
+        return False
 
     @property
     def current_room(self):
@@ -43,4 +49,3 @@ class Level:
 
         raise ValueError(
             f"X: {self.current_room_x}, Y: {self.current_room_y} are not rooms")
-
