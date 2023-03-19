@@ -3,6 +3,8 @@ from pygame import Vector2
 
 from src.constants import *
 from src.player import Player
+from src.npc import NPC
+
 
 def main():
     # Create a screen, a clock and a player
@@ -18,13 +20,10 @@ def main():
         [
             Room(0, 0, [
                 Vector2(x, y) for x in range(5) for y in range(3)
-            ]),
+            ], [NPC(5, 5)]),
             Room(1, 0, [
                 Vector2(x, y) for x in range(10) for y in range(5)
-            ]),
-            Room(2, 0, [
-                Vector2(x, y) for x in range(5, 15) for y in range(10, 15)
-            ])
+            ], [])
         ]
     )
 
@@ -59,17 +58,7 @@ def main():
         # Draw the player
         player.draw(SCREEN)
 
-        for wall in level.current_room.walls:
-            pygame.draw.rect(
-                SCREEN,
-                (100, 100, 100),
-                [
-                    wall.x * TILE_SIZE,
-                    wall.y * TILE_SIZE,
-                    TILE_SIZE,
-                    TILE_SIZE
-                ]
-            )
+        level.current_room.draw(SCREEN)
 
         # Update the display
         pygame.display.flip()
