@@ -32,3 +32,6 @@ class Room:
                     TILE_SIZE
                 )
             )
+        
+        for npc in self.npcs:
+            npc.draw(screen)

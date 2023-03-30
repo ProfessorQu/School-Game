@@ -25,6 +25,12 @@ def main():
             ], [NPC(5, 5)]),
             Room(1, 0, [
                 Vector2(x, y) for x in range(10) for y in range(5)
+            ], []),
+            Room(2, 0, [
+                Vector2(x, y) for x in range(15) for y in range(5)
+            ], []),
+            Room(1, 1, [
+                Vector2(x, y) for x in range(15) for y in range(5)
             ], [])
         ]
     )
@@ -34,9 +40,11 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            elif event.type == pygame.KEYUP:
+                player.update(level, event.key)
 
-        player.get_inputs(level.current_room)
-        player.update(level)
+        # player.get_inputs(level.current_room)
+        # player.update(level)
 
         # Fill the screen
         SCREEN.fill((100, 100, 200))

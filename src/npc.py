@@ -21,7 +21,7 @@ class NPC:
             """
             pygame.draw.circle(
                 screen,
-                [200, 10, 30],
+                [100, 200, 100],
                 self.screen_position,
                 self.SIZE
             )
