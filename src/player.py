@@ -22,6 +22,7 @@ class Player:
         # A timer to keep track of moving through rooms
         self.move_room_timer = self.MOVE_ROOM_COOLDOWN
 
+
     def update(self, level: Level, key):
         """Get the inputs for the player to determine movement
         """
@@ -60,6 +61,12 @@ class Player:
         if new_position in level.current_room.walls:
             return
 
+        if npc := level.current_room.get_npc(new_position):
+            level.current_dialogue = npc.dialogue
+            return
+        else:
+            level.current_dialogue = ""
+
         self.position = new_position
 
     def draw(self, screen: pygame.Surface):
@@ -74,3 +81,4 @@ class Player:
             utils.convert_to_screen(self.position),
             self.SIZE
         )
+

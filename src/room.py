@@ -1,12 +1,13 @@
 import pygame
 from pygame import Vector2
 
-from typing import List
+from typing import List, Union
 
 from src.constants import *
+from src.npc import NPC
 
 class Room:
-    def __init__(self, x: int, y: int, walls: List[Vector2], npcs) -> None:
+    def __init__(self, x: int, y: int, walls: List[Vector2], npcs: List[NPC]):
         """Initialize Room
 
         Args:
@@ -20,7 +21,25 @@ class Room:
         self.walls = walls
         self.npcs = npcs
     
+    def get_npc(self, pos: Vector2) -> Union[NPC, None]:
+        """Return an NPC if there is one at pos
+
+        Args:
+            npc (Vector2): the position of the NPC
+
+        Returns:
+            Union[NPC, None]: returns None if there is no NPC, otherwise returns the npc
+        """
+        return next(
+            (npc for npc in self.npcs if npc.position == pos), None
+        )
+    
     def draw(self, screen: pygame.Surface):
+        """Draw this room
+
+        Args:
+            screen (pygame.Surface): the screen
+        """
         for wall in self.walls:
             pygame.draw.rect(
                 screen,

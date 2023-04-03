@@ -1,6 +1,9 @@
 from typing import List
 
+import pygame
+
 from src.room import Room
+from src.constants import *
 
 class Level:
     def __init__(self, rooms: List[Room]) -> None:
@@ -13,6 +16,49 @@ class Level:
 
         self.current_room_x = 0
         self.current_room_y = 0
+
+        self.current_dialogue = ""
+
+        self.font = pygame.font.SysFont("", 40)
+    
+    def draw(self, screen: pygame.Surface):
+        """Draw the level
+
+        Args:
+            screen (pygame.Surface): the screen
+        """
+
+        # Draw the current room
+        self.current_room.draw(screen)
+
+        # Draw dialogue from npcs
+        if self.current_dialogue:
+            # Draw the text box
+            pygame.draw.rect(
+                screen,
+                (0, 0, 0),
+                pygame.Rect(
+                    0,
+                    SCREEN_HEIGHT / 2,
+                    SCREEN_WIDTH,
+                    SCREEN_HEIGHT / 2
+                )
+            )
+
+            pygame.draw.rect(
+                screen,
+                (240, 240, 240),
+                pygame.Rect(
+                    TEXT_BOX_BORDER_THICKNESS,
+                    SCREEN_HEIGHT / 2 + TEXT_BOX_BORDER_THICKNESS,
+                    SCREEN_WIDTH - TEXT_BOX_BORDER_THICKNESS * 2,
+                    SCREEN_HEIGHT / 2 - TEXT_BOX_BORDER_THICKNESS * 2
+                )
+            )
+
+            # Draw the text
+            text_surface = self.font.render(self.current_dialogue, True, (0, 0, 0))
+            screen.blit(text_surface, (2 * TEXT_BOX_BORDER_THICKNESS, SCREEN_HEIGHT / 2 + 2 * TEXT_BOX_BORDER_THICKNESS))
 
     def move_room(self, x: int, y: int) -> bool:
         """Move the current room with an offset of x and y
@@ -34,7 +80,7 @@ class Level:
         return False
 
     @property
-    def current_room(self):
+    def current_room(self) -> Room:
         """Get the current room
 
         Raises:
