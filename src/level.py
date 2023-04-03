@@ -1,3 +1,4 @@
+import itertools
 from typing import List
 
 import pygame
@@ -20,6 +21,9 @@ class Level:
         self.current_dialogue = ""
 
         self.font = pygame.font.SysFont("", 40)
+
+        floor_image = pygame.image.load("assets/floor.png").convert()
+        self.floor_image = pygame.transform.scale(floor_image, (TILE_SIZE, TILE_SIZE))
     
     def draw(self, screen: pygame.Surface):
         """Draw the level
@@ -27,6 +31,8 @@ class Level:
         Args:
             screen (pygame.Surface): the screen
         """
+        for x, y in itertools.product(range(GRID_WIDTH), range(GRID_HEIGHT)):
+            screen.blit(self.floor_image, (x * TILE_SIZE, y * TILE_SIZE))
 
         # Draw the current room
         self.current_room.draw(screen)

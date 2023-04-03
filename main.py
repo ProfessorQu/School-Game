@@ -24,7 +24,7 @@ def main():
         [
             Room(0, 0, [
                 Vector2(x, y) for x in range(5) for y in range(3)
-            ], [NPC(5, 5, "Ik ben Korné!")]),
+            ], [NPC(5, 5, "Korné", "Ik ben Korné!")]),
             Room(1, 0, [
                 Vector2(x, y) for x in range(10) for y in range(5)
             ], []),
@@ -47,9 +47,9 @@ def main():
 
         SCREEN.fill((100, 100, 200))
 
-        player.draw(SCREEN)
-
         level.draw(SCREEN)
+
+        player.draw(SCREEN)
 
         # Update the display
         pygame.display.flip()
