@@ -11,17 +11,11 @@ class Player:
     SIZE = 10
     SPEED = 0.1
 
-    MOVE_ROOM_COOLDOWN = 100
-
     def __init__(self):
         """Initialize the player
         """
         # The tilemap position of the player
         self.position = Vector2(GRID_WIDTH / 2, GRID_HEIGHT / 2)
-
-        # A timer to keep track of moving through rooms
-        self.move_room_timer = self.MOVE_ROOM_COOLDOWN
-
 
     def update(self, level: Level, key):
         """Get the inputs for the player to determine movement
