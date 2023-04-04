@@ -20,6 +20,9 @@ class Room:
 
         self.walls = walls
         self.npcs = npcs
+
+        wall_image = pygame.image.load("assets/muur.png")
+        self.wall_image = pygame.transform.scale(wall_image, (TILE_SIZE, TILE_SIZE))
     
     def get_npc(self, pos: Vector2) -> Union[NPC, None]:
         """Return an NPC if there is one at pos
@@ -41,10 +44,8 @@ class Room:
             screen (pygame.Surface): the screen
         """
         for wall in self.walls:
-            pygame.draw.rect(
-                screen,
-                (100, 100, 100),
-                pygame.Rect(
+            screen.blit(
+                self.wall_image, pygame.Rect(
                     wall.x * TILE_SIZE,
                     wall.y * TILE_SIZE,
                     TILE_SIZE,
