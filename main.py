@@ -14,13 +14,26 @@ def main():
 
     pygame.display.set_caption("School game")
 
+    #muziek
+    pygame.mixer.init()
+    #muziek zelf
+    pygame.mixer.music.load('backgroundmusic.ogg')
+    #muziek loopen
+    pygame.mixer.music.play(-1)
+    #Het volume
+    pygame.mixer.music.set_volume(0.2)
+
     running = True
 
     level = Level(
         [
             Room(0, 0, [
                 Vector2(x, y) for x in range(5) for y in range(3)
+<<<<<<< Updated upstream
             ]),
+=======
+            ], [NPC(5, 5, "Korné", "Neee, astu", "Joost verslagen.ogg")]),
+>>>>>>> Stashed changes
             Room(1, 0, [
                 Vector2(x, y) for x in range(10) for y in range(5)
             ]),

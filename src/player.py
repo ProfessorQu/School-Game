@@ -44,6 +44,7 @@ class Player:
             self.start_position = self.tilemap_position
             self.traveled = 0
 
+<<<<<<< Updated upstream
     def update(self, level: Level):
         """Update the position of the player
         """
@@ -58,6 +59,12 @@ class Player:
 
             self.screen_position = self.convert_to_screen(new_position)
             self.traveled += self.SPEED
+=======
+        if npc := level.current_room.get_npc(new_position):
+            level.current_npc = npc
+            npc.play_voiceline()
+            return
+>>>>>>> Stashed changes
         else:
             self.screen_position = self.convert_to_screen(self.destination)
 
