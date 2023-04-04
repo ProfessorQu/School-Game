@@ -62,10 +62,10 @@ class Player:
             return
 
         if npc := level.current_room.get_npc(new_position):
-            level.current_dialogue = npc.dialogue
+            level.current_npc = npc
             return
         else:
-            level.current_dialogue = ""
+            level.current_npc = None
 
         self.position = new_position
 

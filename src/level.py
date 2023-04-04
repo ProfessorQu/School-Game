@@ -18,7 +18,7 @@ class Level:
         self.current_room_x = 0
         self.current_room_y = 0
 
-        self.current_dialogue = ""
+        self.current_npc = None
 
         self.font = pygame.font.SysFont("", 40)
 
@@ -38,33 +38,40 @@ class Level:
         self.current_room.draw(screen)
 
         # Draw dialogue from npcs
-        if self.current_dialogue:
-            # Draw the text box
-            pygame.draw.rect(
-                screen,
-                (0, 0, 0),
-                pygame.Rect(
-                    0,
-                    SCREEN_HEIGHT / 2,
-                    SCREEN_WIDTH,
-                    SCREEN_HEIGHT / 2
-                )
-            )
+        if self.current_npc:
+            self.draw_text_box(screen)
 
-            pygame.draw.rect(
-                screen,
-                (240, 240, 240),
-                pygame.Rect(
-                    TEXT_BOX_BORDER_THICKNESS,
-                    SCREEN_HEIGHT / 2 + TEXT_BOX_BORDER_THICKNESS,
-                    SCREEN_WIDTH - TEXT_BOX_BORDER_THICKNESS * 2,
-                    SCREEN_HEIGHT / 2 - TEXT_BOX_BORDER_THICKNESS * 2
-                )
-            )
+    def draw_text_box(self, screen):
+        # Draw the name
+        text_surface = self.font.render(self.current_npc.name, True, (0, 0, 0))
+        screen.blit(text_surface, (0, SCREEN_HEIGHT / 2 - TEXT_BOX_BORDER_THICKNESS * 3, SCREEN_WIDTH, 100))
 
-            # Draw the text
-            text_surface = self.font.render(self.current_dialogue, True, (0, 0, 0))
-            screen.blit(text_surface, (2 * TEXT_BOX_BORDER_THICKNESS, SCREEN_HEIGHT / 2 + 2 * TEXT_BOX_BORDER_THICKNESS))
+        # Draw the text box
+        pygame.draw.rect(
+            screen,
+            (0, 0, 0),
+            pygame.Rect(
+                0,
+                SCREEN_HEIGHT / 2,
+                SCREEN_WIDTH,
+                SCREEN_HEIGHT / 2
+            )
+        )
+
+        pygame.draw.rect(
+            screen,
+            (240, 240, 240),
+            pygame.Rect(
+                TEXT_BOX_BORDER_THICKNESS,
+                SCREEN_HEIGHT / 2 + TEXT_BOX_BORDER_THICKNESS,
+                SCREEN_WIDTH - TEXT_BOX_BORDER_THICKNESS * 2,
+                SCREEN_HEIGHT / 2 - TEXT_BOX_BORDER_THICKNESS * 2
+            )
+        )
+
+        # Draw the text
+        text_surface = self.font.render(self.current_npc.dialogue, True, (0, 0, 0))
+        screen.blit(text_surface, (2 * TEXT_BOX_BORDER_THICKNESS, SCREEN_HEIGHT / 2 + 2 * TEXT_BOX_BORDER_THICKNESS))
 
     def move_room(self, x: int, y: int) -> bool:
         """Move the current room with an offset of x and y
