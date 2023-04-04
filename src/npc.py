@@ -8,6 +8,14 @@ class NPC:
     SIZE = 10
 
     def __init__(self, x: int, y: int, name: str, dialogue: str):
+        """Init NPC
+
+        Args:
+            x (int): the x position
+            y (int): the y position
+            name (str): the name of the NPC
+            dialogue (str): the dialogue of the NPC
+        """
         self.name = name
 
         self.position = Vector2(x, y)
