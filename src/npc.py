@@ -7,7 +7,7 @@ from src import utils
 class NPC:
     SIZE = 10
 
-    def __init__(self, x: int, y: int, name: str, dialogue: str):
+    def __init__(self, x: int, y: int, name: str, dialogue: str, voiceline_file: str):
         """Init NPC
 
         Args:
@@ -21,10 +21,15 @@ class NPC:
         self.position = Vector2(x, y)
         self.screen_position = utils.convert_to_screen(self.position) - Vector2(TILE_SIZE) / 2
 
-        image = pygame.image.load(f"assets/{self.name.lower()}.png")
+        self.voiceline = pygame.mixer.Sound(f"assets/sounds/{voiceline_file}.ogg")
+
+        image = pygame.image.load(f"assets/images/{self.name.lower()}.png")
         self.image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE)).convert_alpha()
 
         self.dialogue = dialogue
+
+    def play_voiceline(self):
+        self.voiceline.play()
       
     def draw(self, screen: pygame.Surface):
         """Draws the player to the screen

@@ -21,7 +21,7 @@ class Room:
         self.walls = walls
         self.npcs = npcs
 
-        wall_image = pygame.image.load("assets/muur.png")
+        wall_image = pygame.image.load("assets/images/muur.png")
         self.wall_image = pygame.transform.scale(wall_image, (TILE_SIZE, TILE_SIZE))
     
     def get_npc(self, pos: Vector2) -> Union[NPC, None]:

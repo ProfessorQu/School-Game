@@ -16,6 +16,14 @@ def main():
     CLOCK = pygame.time.Clock()
     player = Player()
 
+    pygame.mixer.init()
+    #muziek zelf
+    pygame.mixer.music.load("assets/sounds/backgroundmusic.ogg")
+    #muziek loopen
+    pygame.mixer.music.play(-1)
+    #Het volume
+    pygame.mixer.music.set_volume(0.2)
+
     pygame.display.set_caption("School game")
 
     running = True
@@ -24,7 +32,7 @@ def main():
         [
             Room(0, 0, [
                 Vector2(x, y) for x in range(5) for y in range(3)
-            ], [NPC(5, 5, "Korné", "Ik ben Korné!")]),
+            ], [NPC(5, 5, "Korné", "Ik ben Korné!", "Joost verslagen")]),
             Room(1, 0, [
                 Vector2(x, y) for x in range(10) for y in range(5)
             ], []),

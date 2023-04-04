@@ -22,7 +22,7 @@ class Level:
 
         self.font = pygame.font.SysFont("", 40)
 
-        floor_image = pygame.image.load("assets/floor.png").convert()
+        floor_image = pygame.image.load("assets/images/floor.png").convert()
         self.floor_image = pygame.transform.scale(floor_image, (TILE_SIZE, TILE_SIZE))
     
     def draw(self, screen: pygame.Surface):

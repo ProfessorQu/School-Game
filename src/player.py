@@ -57,6 +57,7 @@ class Player:
 
         if npc := level.current_room.get_npc(new_position):
             level.current_npc = npc
+            npc.play_voiceline()
             return
         else:
             level.current_npc = None
