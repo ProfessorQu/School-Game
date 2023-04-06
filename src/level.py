@@ -4,7 +4,7 @@ from typing import List
 import pygame
 
 from src.room import Room
-from src.constants import *
+from src.utils.constants import *
 
 class Level:
     def __init__(self, rooms: List[Room]) -> None:
@@ -37,7 +37,7 @@ class Level:
         # Draw the current room
         self.current_room.draw(screen)
 
-    def draw_text_box(self, screen):
+    def draw_text_box(self, screen: pygame.Surface):
         """Draw the textbox
 
         Args:
@@ -74,7 +74,7 @@ class Level:
         )
 
         # Draw the text
-        text_surface = self.font.render(self.current_npc.dialogue, True, (0, 0, 0))
+        text_surface = self.font.render(self.current_npc.current_line.line, True, (0, 0, 0))
         screen.blit(text_surface, (2 * TEXT_BOX_BORDER_THICKNESS, SCREEN_HEIGHT / 2 + 2 * TEXT_BOX_BORDER_THICKNESS))
 
     def move_room(self, x: int, y: int) -> bool:

@@ -1,14 +1,16 @@
 from typing import Union
 import pygame
 from pygame import Vector2
-from src.constants import *
+from src.utils.constants import *
 
-from src import utils
+from src.utils import utils
+from src.utils.dialogue import Line
+from src.utils.dialogue import Dialogue
 
 class NPC:
     SIZE = 10
 
-    def __init__(self, x: int, y: int, name: str, dialogue: str, voiceline_file: Union[str, None]):
+    def __init__(self, x: int, y: int, name: str, dialogue: Dialogue):
         """Init NPC
 
         Args:
@@ -23,23 +25,26 @@ class NPC:
         self.position = Vector2(x, y)
         self.screen_position = utils.convert_to_screen(self.position) - Vector2(TILE_SIZE) / 2
 
-        # Load voiceline
-        if voiceline_file:
-            self.voiceline = pygame.mixer.Sound(f"assets/sounds/{voiceline_file}.ogg")
-        else:
-            self.voiceline = None
-
         # Load image
         image = pygame.image.load(f"assets/images/npcs/{self.name.lower()}.png")
         self.image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE)).convert_alpha()
 
         self.dialogue = dialogue
 
+        self.current_line = None
+
+    def get_line(self, player) -> str:
+        has_item, self.current_line = self.dialogue.get_line(player.items)
+
+        if has_item:
+            player.items.remove(self.dialogue.item)
+
+        return self.current_line.line
+
     def play_voiceline(self):
         """Play the voiceline
         """
-        if self.voiceline:
-            self.voiceline.play()
+        self.current_line.play_voiceline()
       
     def draw(self, screen: pygame.Surface):
         """Draws the player to the screen

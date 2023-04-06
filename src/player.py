@@ -1,11 +1,10 @@
 import os
 import pygame
 from pygame import Vector2
-from src import utils
+from src.utils import utils
 
-from src.constants import *
+from src.utils.constants import *
 from src.level import Level
-from src.room import Room
 
 
 class Player:
@@ -30,6 +29,8 @@ class Player:
             image = pygame.image.load(directory + image_filename)
             image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
             self.images.append(image)
+        
+        self.items = []
 
     def update(self, level: Level, key):
         """Get the inputs for the player to determine movement
@@ -71,6 +72,7 @@ class Player:
 
         if npc := level.current_room.get_npc(new_position):
             level.current_npc = npc
+            level.current_npc.get_line(self)
             npc.play_voiceline()
             return
         else:

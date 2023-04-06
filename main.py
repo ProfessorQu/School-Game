@@ -1,11 +1,13 @@
 import pygame
 from pygame import Vector2
 
-from src.constants import *
+from src.utils.constants import *
 from src.player import Player
 from src.npc import NPC
 from src.level import Level
 from src.room import Room
+
+from src.utils.dialogue import Dialogue, Line
 
 
 def main():
@@ -32,16 +34,22 @@ def main():
         [
             Room(0, 0, [
                 Vector2(x, y) for x in range(5) for y in range(3)
-            ], [NPC(5, 5, "Korné", "Ik ben Korné!", None)]),
-            Room(1, 0, [
-                Vector2(x, y) for x in range(10) for y in range(5)
-            ], [NPC(7, 10, "Joost", "Ik ben Joost!", "Joost verslagen")]),
-            Room(2, 0, [
-                Vector2(x, y) for x in range(15) for y in range(5)
-            ], []),
-            Room(1, 1, [
-                Vector2(x, y) for x in range(15) for y in range(5)
-            ], [])
+            ], [
+        NPC(5, 5, "Korné",
+            Dialogue(
+        "heroine",
+        Line("Hmm, lekker", "Joost verslagen"),
+        Line("Geef mij heroine", "Joost verslagen")
+        ))]),
+            # Room(1, 0, [
+            #     Vector2(x, y) for x in range(10) for y in range(5)
+            # ], [NPC(7, 10, "Joost", "Ik ben Joost!", "Joost verslagen")]),
+            # Room(2, 0, [
+            #     Vector2(x, y) for x in range(15) for y in range(5)
+            # ], []),
+            # Room(1, 1, [
+            #     Vector2(x, y) for x in range(15) for y in range(5)
+            # ], [])
         ]
     )
 
@@ -50,7 +58,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            elif event.type == pygame.KEYUP:
+            elif event.type == pygame.KEYDOWN:
                 player.update(level, event.key)
 
         SCREEN.fill((100, 100, 200))

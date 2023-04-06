@@ -3,7 +3,7 @@ from pygame import Vector2
 
 from typing import List, Union
 
-from src.constants import *
+from src.utils.constants import *
 from src.npc import NPC
 
 class Room:
