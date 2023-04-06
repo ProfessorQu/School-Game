@@ -1,3 +1,4 @@
+import os
 import pygame
 from pygame import Vector2
 from src import utils
@@ -8,30 +9,43 @@ from src.room import Room
 
 
 class Player:
-    SIZE = 10
-    SPEED = 0.1
+    ANIM_TIME = 10
 
     def __init__(self):
         """Initialize the player
         """
         # The tilemap position of the player
         self.position = Vector2(GRID_WIDTH / 2, GRID_HEIGHT / 2)
+        self.move = Vector2(0)
+
+        # Animation
+        self.timer = self.ANIM_TIME
+        self.image_index = 0
+
+        # Load player images
+        self.images = []
+        directory = "assets/images/player/"
+
+        for image_filename in os.listdir(directory):
+            image = pygame.image.load(directory + image_filename)
+            image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
+            self.images.append(image)
 
     def update(self, level: Level, key):
         """Get the inputs for the player to determine movement
         """
-        move = pygame.Vector2(0, 0)
+        self.move = pygame.Vector2(0, 0)
         # Set the move according to the key pressed
         if key == pygame.K_w:
-            move.y = -1
+            self.move.y = -1
         elif key == pygame.K_s:
-            move.y = 1
+            self.move.y = 1
         elif key == pygame.K_d:
-            move.x = 1
+            self.move.x = 1
         elif key == pygame.K_a:
-            move.x = -1
+            self.move.x = -1
 
-        new_position = self.position + move
+        new_position = self.position + self.move
 
         # Check x position
         if new_position.x > GRID_WIDTH - 2:
@@ -70,10 +84,17 @@ class Player:
         Args:
             screen (pygame.Surface): the surface to draw on (always screen)
         """
-        pygame.draw.circle(
-            screen,
-            [200, 10, 30],
-            utils.convert_to_screen(self.position),
-            self.SIZE
-        )
+        # Get the current image and rotate it
+        image = self.images[self.image_index]
+        image = pygame.transform.rotate(image, self.move.angle_to(Vector2(0)) - 90)
+
+        # Draw the current image
+        screen.blit(image, utils.convert_to_screen(self.position - Vector2(0.5)))
+
+        # Change animation frame according to a timer
+        if self.timer <= 0:
+            self.image_index = 1 if self.image_index == 0 else 0
+            self.timer = self.ANIM_TIME
+        else:
+            self.timer -= 1
 

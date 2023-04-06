@@ -32,7 +32,7 @@ def main():
         [
             Room(0, 0, [
                 Vector2(x, y) for x in range(5) for y in range(3)
-            ], [NPC(5, 5, "Korné", "Ik ben Korné!", "Joost verslagen")]),
+            ], [NPC(5, 5, "Korné", "Ik ben Korné!", None)]),
             Room(1, 0, [
                 Vector2(x, y) for x in range(10) for y in range(5)
             ], []),
