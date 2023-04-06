@@ -18,13 +18,13 @@ def main():
     CLOCK = pygame.time.Clock()
     player = Player()
 
-    # pygame.mixer.init()
-    # # Load and play the music
-    # pygame.mixer.music.load("assets/sounds/backgroundmusic.ogg")
-    # # Music loopen
-    # pygame.mixer.music.play(-1)
-    # # Volume of the song
-    # pygame.mixer.music.set_volume(0.2)
+    pygame.mixer.init()
+    # Load and play the music
+    pygame.mixer.music.load("assets/sounds/backgroundmusic.ogg")
+    # Music loopen
+    pygame.mixer.music.play(-1)
+    # Volume of the song
+    pygame.mixer.music.set_volume(0.1)
 
     pygame.display.set_caption("School game")
 
