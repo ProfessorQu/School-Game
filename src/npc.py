@@ -27,7 +27,7 @@ class NPC:
         else:
             self.voiceline = None
 
-        image = pygame.image.load(f"assets/images/{self.name.lower()}.png")
+        image = pygame.image.load(f"assets/images/npcs/{self.name.lower()}.png")
         self.image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE)).convert_alpha()
 
         self.dialogue = dialogue

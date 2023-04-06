@@ -25,17 +25,19 @@ class Level:
         floor_image = pygame.image.load("assets/images/floor.png").convert()
         self.floor_image = pygame.transform.scale(floor_image, (TILE_SIZE, TILE_SIZE))
     
-    def draw(self, screen: pygame.Surface):
-        """Draw the level
-
-        Args:
-            screen (pygame.Surface): the screen
-        """
+    def draw_background(self, screen: pygame.Surface):
         for x, y in itertools.product(range(GRID_WIDTH), range(GRID_HEIGHT)):
             screen.blit(self.floor_image, (x * TILE_SIZE, y * TILE_SIZE))
 
         # Draw the current room
         self.current_room.draw(screen)
+
+    def draw_text(self, screen: pygame.Surface):
+        """Draw the level
+
+        Args:
+            screen (pygame.Surface): the screen
+        """
 
         # Draw dialogue from npcs
         if self.current_npc:
