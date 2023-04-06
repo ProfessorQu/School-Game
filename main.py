@@ -18,13 +18,13 @@ def main():
     CLOCK = pygame.time.Clock()
     player = Player()
 
-    pygame.mixer.init()
-    # Load and play the music
-    pygame.mixer.music.load("assets/sounds/backgroundmusic.ogg")
-    # Music loopen
-    pygame.mixer.music.play(-1)
-    # Volume of the song
-    pygame.mixer.music.set_volume(0.2)
+    # pygame.mixer.init()
+    # # Load and play the music
+    # pygame.mixer.music.load("assets/sounds/backgroundmusic.ogg")
+    # # Music loopen
+    # pygame.mixer.music.play(-1)
+    # # Volume of the song
+    # pygame.mixer.music.set_volume(0.2)
 
     pygame.display.set_caption("School game")
 
@@ -32,24 +32,32 @@ def main():
 
     level = Level(
         [
-            Room(0, 0, [
-                Vector2(x, y) for x in range(5) for y in range(3)
-            ], [
-        NPC(5, 5, "Korné",
-            Dialogue(
-        "heroine",
-        Line("Hmm, lekker", "Joost verslagen"),
-        Line("Geef mij heroine", "Joost verslagen")
-        ))]),
-            # Room(1, 0, [
-            #     Vector2(x, y) for x in range(10) for y in range(5)
-            # ], [NPC(7, 10, "Joost", "Ik ben Joost!", "Joost verslagen")]),
-            # Room(2, 0, [
-            #     Vector2(x, y) for x in range(15) for y in range(5)
-            # ], []),
-            # Room(1, 1, [
-            #     Vector2(x, y) for x in range(15) for y in range(5)
-            # ], [])
+            Room(0, 0, [Vector2(x, y) for x in range(5) for y in range(3)],
+                [
+                    NPC(5, 5, "Korné",
+                        Dialogue(
+                            "heroine",
+                            "knijptang",
+                            Line("Geef die heroine maar, dan krijg jij de sleutel\nvan het informatica lokaal.", "korné_wel"),
+                            Line("N-n-n-n nee! Je hebt niks.\nGeef me heroine! Geef, geef, geef!", "korné_niet")
+                        )
+                    )
+                ]
+            ),
+            Room(1, 0, [Vector2(x, y) for x in range(10) for y in range(5)],
+                [
+                    NPC(7, 10, "Joost",
+                        Dialogue(
+                            "knijptang",
+                            "sleutel",
+                            Line("Nee! Hoe durf je?!\nStelen van je eigen informatica docent?!", "joost_wel"),
+                            Line("Hallo, wat is er? Sleutel? Nee die ligt hier niet.", "joost_niet")
+                        )
+                    )
+                ]
+            ),
+            Room(2, 0, [Vector2(x, y) for x in range(15) for y in range(5)], []),
+            Room(1, 1, [Vector2(x, y) for x in range(15) for y in range(5)], [])
         ]
     )
 

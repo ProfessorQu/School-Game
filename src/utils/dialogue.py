@@ -11,7 +11,7 @@ class Line:
             voiceline_file (str): the name of the voiceline
         """
         self.line = line
-        self.voiceline = pygame.mixer.Sound(f"assets/sounds/{voiceline_file}.ogg")
+        self.voiceline = pygame.mixer.Sound(f"assets/sounds/npcs/{voiceline_file}.ogg")
     
     def play_voiceline(self):
         """Play the voiceline
@@ -28,7 +28,7 @@ class Line:
 
 
 class Dialogue:
-    def __init__(self, item: str, has_line: Line, other_line: Line):
+    def __init__(self, item: str, get_item: str, has_line: Line, other_line: Line):
         """Initialize the dialogue
 
         Args:
@@ -36,7 +36,8 @@ class Dialogue:
             has_line (Line): the line if you have it
             other_line (Line): the line if you don't
         """
-        self.item = item
+        self.has_item = item
+        self.get_item = get_item
         self.has_line = has_line
         self.other_line = other_line
     
@@ -49,12 +50,4 @@ class Dialogue:
         Returns:
             bool, Line: have the required item, the current line
         """
-        return self.item in items, self.has_line if self.item in items else self.other_line
-    
-    def get_item(self) -> str:
-        """Get the item
-
-        Returns:
-            str: the item
-        """
-        return self.item
+        return self.has_item in items, self.has_line if self.has_item in items else self.other_line

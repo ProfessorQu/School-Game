@@ -37,7 +37,8 @@ class NPC:
         has_item, self.current_line = self.dialogue.get_line(player.items)
 
         if has_item:
-            player.items.remove(self.dialogue.item)
+            player.items.remove(self.dialogue.has_item)
+            player.items.append(self.dialogue.get_item)
 
         return self.current_line.line
 

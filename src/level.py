@@ -48,7 +48,7 @@ class Level:
 
         # Draw the name
         text_surface = self.font.render(self.current_npc.name, True, (0, 0, 0))
-        screen.blit(text_surface, (0, SCREEN_HEIGHT / 2 - TEXT_BOX_BORDER_THICKNESS * 3, SCREEN_WIDTH, 100))
+        screen.blit(text_surface, (0, SCREEN_HEIGHT / 1.5 - TEXT_BOX_BORDER_THICKNESS * 3, SCREEN_WIDTH, 100))
 
         # Draw the text box
         pygame.draw.rect(
@@ -56,9 +56,9 @@ class Level:
             (0, 0, 0),
             pygame.Rect(
                 0,
-                SCREEN_HEIGHT / 2,
+                SCREEN_HEIGHT / 1.5,
                 SCREEN_WIDTH,
-                SCREEN_HEIGHT / 2
+                SCREEN_HEIGHT / 1.5
             )
         )
 
@@ -67,15 +67,21 @@ class Level:
             (240, 240, 240),
             pygame.Rect(
                 TEXT_BOX_BORDER_THICKNESS,
-                SCREEN_HEIGHT / 2 + TEXT_BOX_BORDER_THICKNESS,
+                SCREEN_HEIGHT / 1.5 + TEXT_BOX_BORDER_THICKNESS,
                 SCREEN_WIDTH - TEXT_BOX_BORDER_THICKNESS * 2,
-                SCREEN_HEIGHT / 2 - TEXT_BOX_BORDER_THICKNESS * 2
+                SCREEN_HEIGHT / 1.5 - TEXT_BOX_BORDER_THICKNESS * 2
             )
         )
 
-        # Draw the text
-        text_surface = self.font.render(self.current_npc.current_line.line, True, (0, 0, 0))
-        screen.blit(text_surface, (2 * TEXT_BOX_BORDER_THICKNESS, SCREEN_HEIGHT / 2 + 2 * TEXT_BOX_BORDER_THICKNESS))
+        # Draw the text with multiple lines
+        text = self.current_npc.current_line.line
+        y_offset = 0
+
+        for line in text.split('\n'):
+            text_surface = self.font.render(line, True, (0, 0, 0))
+            screen.blit(text_surface, (2 * TEXT_BOX_BORDER_THICKNESS, SCREEN_HEIGHT / 1.5 + 2 * TEXT_BOX_BORDER_THICKNESS + y_offset))
+
+            y_offset += self.font.get_height()
 
     def move_room(self, x: int, y: int) -> bool:
         """Move the current room with an offset of x and y
