@@ -34,11 +34,20 @@ class NPC:
         self.current_line = None
 
     def get_line(self, player) -> str:
+        """Get the current line of the npc
+
+        Args:
+            player (Player): the player
+
+        Returns:
+            str: the line
+        """
         has_item, self.current_line = self.dialogue.get_line(player.items)
 
         if has_item:
             player.items.remove(self.dialogue.has_item)
-            player.items.append(self.dialogue.get_item)
+            if self.dialogue.get_item:
+                player.items.append(self.dialogue.get_item)
 
         return self.current_line.line
 

@@ -11,12 +11,16 @@ class Line:
             voiceline_file (str): the name of the voiceline
         """
         self.line = line
-        self.voiceline = pygame.mixer.Sound(f"assets/sounds/npcs/{voiceline_file}.ogg")
+        if voiceline_file:
+            self.voiceline = pygame.mixer.Sound(f"assets/sounds/npcs/{voiceline_file}.ogg")
+        else:
+            self.voiceline = None
     
     def play_voiceline(self):
         """Play the voiceline
         """
-        self.voiceline.play()
+        if self.voiceline:
+            self.voiceline.play()
     
     def get_line(self) -> str:
         """Get the line
