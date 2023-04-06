@@ -26,24 +26,26 @@ class Level:
         self.floor_image = pygame.transform.scale(floor_image, (TILE_SIZE, TILE_SIZE))
     
     def draw_background(self, screen: pygame.Surface):
+        """Draw floors and walls
+
+        Args:
+            screen (pygame.Surface): the screen
+        """
         for x, y in itertools.product(range(GRID_WIDTH), range(GRID_HEIGHT)):
             screen.blit(self.floor_image, (x * TILE_SIZE, y * TILE_SIZE))
 
         # Draw the current room
         self.current_room.draw(screen)
 
-    def draw_text(self, screen: pygame.Surface):
-        """Draw the level
+    def draw_text_box(self, screen):
+        """Draw the textbox
 
         Args:
             screen (pygame.Surface): the screen
         """
+        if not self.current_npc:
+            return
 
-        # Draw dialogue from npcs
-        if self.current_npc:
-            self.draw_text_box(screen)
-
-    def draw_text_box(self, screen):
         # Draw the name
         text_surface = self.font.render(self.current_npc.name, True, (0, 0, 0))
         screen.blit(text_surface, (0, SCREEN_HEIGHT / 2 - TEXT_BOX_BORDER_THICKNESS * 3, SCREEN_WIDTH, 100))

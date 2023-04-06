@@ -17,11 +17,11 @@ def main():
     player = Player()
 
     pygame.mixer.init()
-    #muziek zelf
+    # Load and play the music
     pygame.mixer.music.load("assets/sounds/backgroundmusic.ogg")
-    #muziek loopen
+    # Music loopen
     pygame.mixer.music.play(-1)
-    #Het volume
+    # Volume of the song
     pygame.mixer.music.set_volume(0.2)
 
     pygame.display.set_caption("School game")
@@ -55,11 +55,10 @@ def main():
 
         SCREEN.fill((100, 100, 200))
 
+        # Draw things
         level.draw_background(SCREEN)
-        
         player.draw(SCREEN)
-        
-        level.draw_text(SCREEN)
+        level.draw_text_box(SCREEN)
 
         # Update the display
         pygame.display.flip()

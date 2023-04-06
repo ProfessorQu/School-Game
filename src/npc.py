@@ -19,14 +19,17 @@ class NPC:
         """
         self.name = name
 
+        # Set position
         self.position = Vector2(x, y)
         self.screen_position = utils.convert_to_screen(self.position) - Vector2(TILE_SIZE) / 2
 
+        # Load voiceline
         if voiceline_file:
             self.voiceline = pygame.mixer.Sound(f"assets/sounds/{voiceline_file}.ogg")
         else:
             self.voiceline = None
 
+        # Load image
         image = pygame.image.load(f"assets/images/npcs/{self.name.lower()}.png")
         self.image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE)).convert_alpha()
 
