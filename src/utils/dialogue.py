@@ -3,14 +3,14 @@ import pygame
 
 
 class Line:
-    def __init__(self, line: str, voiceline_file: str):
+    def __init__(self, text: str, voiceline_file: str):
         """Initialize the line
 
         Args:
             line (str): the line in the textbox
             voiceline_file (str): the name of the voiceline
         """
-        self.line = line
+        self.text = text
         if voiceline_file:
             self.voiceline = pygame.mixer.Sound(f"assets/sounds/npcs/{voiceline_file}.ogg")
         else:
@@ -28,11 +28,11 @@ class Line:
         Returns:
             str: the line
         """
-        return self.line
+        return self.text
 
 
 class Dialogue:
-    def __init__(self, item: str, get_item: str, has_line: Line, other_line: Line):
+    def __init__(self, has_item: str, get_item: str, has_text: Line, get_text: Line):
         """Initialize the dialogue
 
         Args:
@@ -40,12 +40,12 @@ class Dialogue:
             has_line (Line): the line if you have it
             other_line (Line): the line if you don't
         """
-        self.has_item = item
+        self.has_item = has_item
         self.get_item = get_item
-        self.has_line = has_line
-        self.other_line = other_line
+        self.has_text = has_text
+        self.get_text = get_text
     
-    def get_line(self, items: List[str]) -> Tuple[bool, Line]:
+    def get_current_line(self, items: List[str]) -> Tuple[bool, Line]:
         """Return the current line
 
         Args:
@@ -54,4 +54,4 @@ class Dialogue:
         Returns:
             bool, Line: have the required item, the current line
         """
-        return self.has_item in items, self.has_line if self.has_item in items else self.other_line
+        return self.has_item in items, self.has_text if self.has_item in items else self.get_text

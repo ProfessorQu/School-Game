@@ -10,15 +10,22 @@ from src.utils.dialogue import Dialogue
 class NPC:
     SIZE = 10
 
-    def __init__(self, x: int, y: int, name: str, dialogue: Dialogue):
+    def __init__(
+            self, x: int, y: int, name: str,
+            has_item: str, get_item: str, has_text: str, get_text: str
+        ):
         """Init NPC
 
         Args:
-            x (int): the x position
-            y (int): the y position
-            name (str): the name of the NPC
-            dialogue (str): the dialogue of the NPC
+            x (int): x pos
+            y (int): y pos
+            name (str): name
+            has_item (str): required item
+            get_item (str): what item to get
+            has_text (str): the text for when you have required item
+            get_text (str): the text for when you don't have required item
         """
+        
         self.name = name
 
         # Set position
@@ -29,7 +36,12 @@ class NPC:
         image = pygame.image.load(f"assets/images/npcs/{self.name.lower()}.png")
         self.image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE)).convert_alpha()
 
-        self.dialogue = dialogue
+        self.dialogue = Dialogue(
+            has_item,
+            get_item,
+            Line(has_text, f"{self.name}_wel"),
+            Line(get_text, f"{self.name}_niet")
+        )
 
         self.current_line = None
 
@@ -42,14 +54,14 @@ class NPC:
         Returns:
             str: the line
         """
-        has_item, self.current_line = self.dialogue.get_line(player.items)
+        has_item, self.current_line = self.dialogue.get_current_line(player.items)
 
         if has_item:
             player.items.remove(self.dialogue.has_item)
             if self.dialogue.get_item:
                 player.items.append(self.dialogue.get_item)
 
-        return self.current_line.line
+        return self.current_line.text
 
     def play_voiceline(self):
         """Play the voiceline

@@ -1,13 +1,9 @@
 import pygame
-from pygame import Vector2
 
 from src.utils.constants import *
 from src.player import Player
-from src.npc import NPC
-from src.level import Level
-from src.room import Room
 
-from src.utils.dialogue import Dialogue, Line
+from src.utils.init_level import init_level
 
 
 def main():
@@ -30,36 +26,7 @@ def main():
 
     running = True
 
-    level = Level(
-        [
-            Room(0, 0, [Vector2(x, y) for x in range(5) for y in range(3)],
-                [
-                    NPC(5, 5, "Korné",
-                        Dialogue(
-                            "heroine",
-                            "knijptang",
-                            Line("Geef die heroine maar, dan krijg jij de sleutel\nvan het informatica lokaal.", "korné_wel"),
-                            Line("N-n-n-n nee! Je hebt niks.\nGeef me heroine! Geef, geef, geef!", "korné_niet")
-                        )
-                    )
-                ]
-            ),
-            Room(1, 0, [Vector2(x, y) for x in range(10) for y in range(5)],
-                [
-                    NPC(7, 10, "Joost",
-                        Dialogue(
-                            "knijptang",
-                            "sleutel",
-                            Line("Nee! Hoe durf je?!\nStelen van je eigen informatica docent?!", "joost_wel"),
-                            Line("Hallo, wat is er? Sleutel? Nee die ligt hier niet.", "joost_niet")
-                        )
-                    )
-                ]
-            ),
-            Room(2, 0, [Vector2(x, y) for x in range(15) for y in range(5)], []),
-            Room(1, 1, [Vector2(x, y) for x in range(15) for y in range(5)], [])
-        ]
-    )
+    level = init_level()
 
     while running:
         # Test for quit
