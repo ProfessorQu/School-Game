@@ -37,11 +37,14 @@ class NPC:
         image = pygame.image.load(f"assets/images/npcs/{self.name.lower()}.png")
         self.image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE)).convert_alpha()
 
+        if get_item is not None:
+            has_text += f"\n{{{get_item.capitalize()} verkregen}}"
+
         self.dialogue = Dialogue(
             has_item,
             get_item,
             Line(has_text, f"{self.name}_wel"),
-            Line(get_text, f"{self.name}_niet")
+            Line(get_text, f"{self.name}_niet"),
         )
 
         self.should_destroy = should_destroy
