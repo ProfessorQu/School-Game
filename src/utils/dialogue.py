@@ -16,12 +16,14 @@ class Line:
         else:
             self.voiceline = None
     
+
     def play_voiceline(self):
         """Play the voiceline
         """
         if self.voiceline:
             self.voiceline.play()
     
+
     def get_line(self) -> str:
         """Get the line
 
@@ -45,6 +47,7 @@ class Dialogue:
         self.has_text = has_text
         self.get_text = get_text
     
+
     def get_current_line(self, items: List[str]) -> Tuple[bool, Line]:
         """Return the current line
 
@@ -54,4 +57,7 @@ class Dialogue:
         Returns:
             bool, Line: have the required item, the current line
         """
-        return self.has_item in items, self.has_text if self.has_item in items else self.get_text
+        if self.has_item in items or self.has_item is None:
+            return True, self.has_text
+        else:
+            return False, self.get_text

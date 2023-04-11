@@ -10,6 +10,7 @@ from src.level import Level
 class Player:
     ANIM_TIME = 10
 
+
     def __init__(self):
         """Initialize the player
         """
@@ -29,11 +30,16 @@ class Player:
             image = pygame.image.load(directory + image_filename)
             image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
             self.images.append(image)
-        
-        self.items = []
 
-    def update(self, level: Level, key):
-        """Get the inputs for the player to determine movement
+        self.items = ["deur sleutel"]
+
+
+    def update(self, level: Level, key: int):
+        """Update player
+
+        Args:
+            level (Level): the level
+            key (int): key pressed
         """
         self.move = pygame.Vector2(0, 0)
         # Set the move according to the key pressed
@@ -78,11 +84,17 @@ class Player:
             level.current_npc = npc
             level.current_npc.get_line(self)
             npc.play_voiceline()
+
+            if npc.should_destroy:
+                level.current_room.npcs.remove(npc)
+                level.current_npc = None
+            
             return
         else:
             level.current_npc = None
 
         self.position = new_position
+
 
     def draw(self, screen: pygame.Surface):
         """Draws the player to the screen

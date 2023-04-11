@@ -10,9 +10,11 @@ from src.utils.dialogue import Dialogue
 class NPC:
     SIZE = 10
 
+
     def __init__(
             self, x: int, y: int, name: str,
-            has_item: str, get_item: str, has_text: str, get_text: str
+            has_item: str, get_item: str, has_text: str, get_text: str,
+            should_destroy: bool = False
         ):
         """Init NPC
 
@@ -25,7 +27,6 @@ class NPC:
             has_text (str): the text for when you have required item
             get_text (str): the text for when you don't have required item
         """
-        
         self.name = name
 
         # Set position
@@ -43,7 +44,10 @@ class NPC:
             Line(get_text, f"{self.name}_niet")
         )
 
+        self.should_destroy = should_destroy
+
         self.current_line = None
+
 
     def get_line(self, player) -> str:
         """Get the current line of the npc
@@ -63,11 +67,13 @@ class NPC:
 
         return self.current_line.text
 
+
     def play_voiceline(self):
         """Play the voiceline
         """
         self.current_line.play_voiceline()
-      
+    
+
     def draw(self, screen: pygame.Surface):
         """Draws the player to the screen
 

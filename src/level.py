@@ -25,6 +25,7 @@ class Level:
         floor_image = pygame.image.load("assets/images/floor.png").convert()
         self.floor_image = pygame.transform.scale(floor_image, (TILE_SIZE, TILE_SIZE))
     
+
     def draw_background(self, screen: pygame.Surface):
         """Draw floors and walls
 
@@ -36,6 +37,7 @@ class Level:
 
         # Draw the current room
         self.current_room.draw(screen)
+
 
     def draw_text_box(self, screen: pygame.Surface):
         """Draw the textbox
@@ -83,6 +85,7 @@ class Level:
 
             y_offset += self.font.get_height()
 
+
     def move_room(self, x: int, y: int) -> bool:
         """Move the current room with an offset of x and y
 
@@ -101,6 +104,7 @@ class Level:
                 return True
 
         return False
+
 
     @property
     def current_room(self) -> Room:

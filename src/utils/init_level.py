@@ -11,7 +11,7 @@ def init_level() -> Level:
                 [
                     NPC(5, 5, "Korné",
                             "heroine",
-                            "knijptang",
+                            "deur sleutel",
                             "Geef die heroine maar, dan krijg jij de sleutel\nvan het informatica lokaal.",
                             "N-n-n-n nee! Je hebt niks.\nGeef me heroine! Geef, geef, geef!"
                         )
@@ -27,7 +27,15 @@ def init_level() -> Level:
                     )
                 ]
             ),
-            Room(2, 0, [Vector2(x, y) for x in range(15) for y in range(5)], []),
+            Room(2, 0, [Vector2(x, y) for x in range(15) for y in range(5)],
+                [
+                    NPC(10, 13, "Deur",
+                            "deur sleutel",
+                            None,
+                            "De deur gaat open",
+                            "De deur zit dicht",
+                            True)
+                ]),
             Room(1, 1, [Vector2(x, y) for x in range(15) for y in range(5)], [])
         ]
     )
