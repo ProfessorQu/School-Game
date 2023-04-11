@@ -2,7 +2,7 @@ from pygame import Vector2
 from src.level import Level
 from src.npc import NPC
 from src.room import Room
-from src.utils.dialogue import Dialogue, Line
+
 
 def init_level() -> Level:
     return Level(

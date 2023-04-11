@@ -67,11 +67,13 @@ class Player:
                 self.position.y = GRID_HEIGHT - 2
                 return
 
+        # Stop the player
         if new_position in level.current_room.walls:
             return
-        elif new_position.x < 0 or new_position.x >= GRID_WIDTH or new_position.y < 0 or new_position.y > GRID_HEIGHT:
+        elif new_position.x < 0 or new_position.x >= GRID_WIDTH or new_position.y < 0 or new_position.y >= GRID_HEIGHT:
             return
 
+        # Get npc
         if npc := level.current_room.get_npc(new_position):
             level.current_npc = npc
             level.current_npc.get_line(self)
