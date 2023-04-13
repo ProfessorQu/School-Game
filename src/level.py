@@ -32,6 +32,7 @@ class Level:
         Args:
             screen (pygame.Surface): the screen
         """
+        # Draw floor
         for x, y in itertools.product(range(GRID_WIDTH), range(GRID_HEIGHT)):
             screen.blit(self.floor_image, (x * TILE_SIZE, y * TILE_SIZE))
 
@@ -40,7 +41,7 @@ class Level:
 
 
     def draw_text_box(self, screen: pygame.Surface):
-        """Draw the textbox
+        """Draw the textbox if there is an NPC
 
         Args:
             screen (pygame.Surface): the screen
@@ -96,6 +97,7 @@ class Level:
         new_room_x = self.current_room_x + x
         new_room_y = self.current_room_y + y
 
+        # Find room
         for room in self.rooms:
             if room.x == new_room_x and room.y == new_room_y:
                 self.current_room_x = new_room_x

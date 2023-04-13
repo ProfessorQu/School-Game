@@ -31,6 +31,7 @@ class Player:
             image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
             self.images.append(image)
 
+        # Items
         self.items = ["knijptang_placeholder", "heroine_placeholder"]
     
     
@@ -51,6 +52,7 @@ class Player:
             key (int): key pressed
         """
         self.move = pygame.Vector2(0, 0)
+
         # Set the move according to the key pressed
         if key == pygame.K_w:
             self.move.y = -1
@@ -72,15 +74,19 @@ class Player:
         # Get npc
         if npc := level.current_room.get_npc(new_position):
             level.current_npc = npc
-            has_item = level.current_npc.get_line(self)
+            level.current_npc.get_line(self)
             npc.play_voiceline()
 
-            if has_item and npc.should_destroy:
+            if npc.has_item and npc.should_destroy:
                 level.current_room.npcs.remove(npc)
                 level.current_npc = None
             
             return
         else:
+            npc = level.current_npc
+            if npc and npc.has_item and npc.should_destroy:
+                level.current_room.npcs.remove(npc)
+
             level.current_npc = None
 
         # Check x position

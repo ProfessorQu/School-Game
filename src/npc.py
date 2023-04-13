@@ -40,6 +40,7 @@ class NPC:
         if get_item is not None:
             has_text += f"\n{{{get_item.capitalize()} gekregen}}"
 
+        # Set the dialogue
         self.dialogue = Dialogue(
             has_item,
             get_item,
@@ -47,7 +48,10 @@ class NPC:
             Line(get_text, f"{self.name}_niet"),
         )
 
+        # Should destroy if you have the correct item
         self.should_destroy = should_destroy
+
+        self.has_item = False
 
         self.current_line = None
 
@@ -61,14 +65,12 @@ class NPC:
         Returns:
             bool: whether the player has the correct item
         """
-        has_item, self.current_line = self.dialogue.get_current_line(player.items)
+        self.has_item, self.current_line = self.dialogue.get_current_line(player.items)
 
-        if has_item:
+        if self.has_item:
             player.items.remove(self.dialogue.has_item)
             if self.dialogue.get_item:
                 player.items.append(self.dialogue.get_item)
-
-        return has_item
 
 
     def play_voiceline(self):
