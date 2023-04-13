@@ -7,7 +7,9 @@ from src.utils.constants import *
 from src.npc import NPC
 
 class Room:
-    def __init__(self, x: int, y: int, walls: List[Vector2], npcs: List[NPC]):
+    def __init__(self, x: int, y: int,
+                 left_entry: bool, top_entry: bool, right_entry: bool, bottom_entry: bool,
+                 walls: List[Vector2], npcs: List[NPC]):
         """Initialize Room
 
         Args:
@@ -20,6 +22,11 @@ class Room:
 
         self.walls = walls
         self.npcs = npcs
+
+        self.walls += [Vector2(0, y) for y in range(GRID_HEIGHT) if left_entry or y not in LEFT_RIGHT_ENTRIES]
+        self.walls += [Vector2(GRID_WIDTH - 1, y) for y in range(GRID_HEIGHT) if right_entry or y not in LEFT_RIGHT_ENTRIES]
+        self.walls += [Vector2(x, 0) for x in range(GRID_WIDTH) if top_entry or x not in TOP_BOTTOM_ENTRIES]
+        self.walls += [Vector2(x, GRID_HEIGHT - 1) for x in range(GRID_WIDTH) if bottom_entry or x not in TOP_BOTTOM_ENTRIES]
 
         wall_image = pygame.image.load("assets/images/wall.png")
         self.wall_image = pygame.transform.scale(wall_image, (TILE_SIZE, TILE_SIZE))

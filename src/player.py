@@ -58,25 +58,6 @@ class Player:
 
         new_position = self.position + self.move
 
-        # Check x position
-        if new_position.x > GRID_WIDTH - 2:
-            if level.move_room(1, 0):
-                self.position.x = 1
-                return
-        elif new_position.x < 1:
-            if level.move_room(-1, 0):
-                self.position.x = GRID_WIDTH - 2
-                return
-        # Check y position
-        elif new_position.y > GRID_HEIGHT - 2:
-            if level.move_room(0, -1):
-                self.position.y = 1
-                return
-        elif new_position.y < 1:
-            if level.move_room(0, 1):
-                self.position.y = GRID_HEIGHT - 2
-                return
-
         # Stop the player
         if new_position in level.current_room.walls:
             return
@@ -96,6 +77,21 @@ class Player:
             return
         else:
             level.current_npc = None
+
+        # Check x position
+        if new_position.x > GRID_WIDTH - 2 and level.move_room(1, 0):
+            self.position.x = 1
+            return
+        elif new_position.x < 1 and level.move_room(-1, 0):
+            self.position.x = GRID_WIDTH - 2
+            return
+        # Check y position
+        elif new_position.y > GRID_HEIGHT - 2 and level.move_room(0, -1):
+            self.position.y = 1
+            return
+        elif new_position.y < 1 and level.move_room(0, 1):
+            self.position.y = GRID_HEIGHT - 2
+            return
 
         self.position = new_position
 
