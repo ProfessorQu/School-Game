@@ -31,7 +31,7 @@ class Player:
             image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE))
             self.images.append(image)
 
-        self.items = ["heroine"]
+        self.items = ["knpijtang_placeholder"]
 
 
     def update(self, level: Level, key: int):
