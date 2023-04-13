@@ -30,7 +30,7 @@ def init_level() -> Level:
                             "Nee! Hoe durf je?!\nStelen van je eigen informatica docent?!",
                             "Hallo, wat is er? Sleutel? Nee die ligt hier niet."
                     ),
-                    NPC(10, 5, "Congierge",
+                    NPC(10, 5, "Concierge",
                             "knijptang_placeholder",
                             "knijptang",
                             "Houd de dief!",
