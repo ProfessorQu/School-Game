@@ -35,6 +35,11 @@ class Player:
     
     
     def won(self) -> bool:
+        """If the player has won
+
+        Returns:
+            bool: did the player win
+        """
         return "fiets sleutel" in self.items
 
 
