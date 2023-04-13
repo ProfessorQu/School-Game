@@ -38,7 +38,7 @@ class NPC:
         self.image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE)).convert_alpha()
 
         if get_item is not None:
-            has_text += f"\n{{{get_item.capitalize()} verkregen}}"
+            has_text += f"\n{{{get_item.capitalize()} gekregen}}"
 
         self.dialogue = Dialogue(
             has_item,
