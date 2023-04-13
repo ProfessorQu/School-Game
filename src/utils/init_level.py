@@ -27,7 +27,7 @@ def init_level() -> Level:
                 [
                     NPC(7, 10, "Joost",
                             "knijptang",
-                            "sleutel",
+                            "fiets sleutel",
                             "Nee! Hoe durf je?!\nStelen van je eigen informatica docent?!",
                             "Hallo, wat is er? Sleutel? Nee die ligt hier niet."
                     ),

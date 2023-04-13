@@ -32,6 +32,10 @@ class Player:
             self.images.append(image)
 
         self.items = ["knijptang_placeholder", "heroine_placeholder"]
+    
+    
+    def won(self) -> bool:
+        return "fiets sleutel" in self.items
 
 
     def update(self, level: Level, key: int):

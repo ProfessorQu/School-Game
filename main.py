@@ -28,6 +28,8 @@ def main():
 
     level = init_level()
 
+    win_image = pygame.image.load("assets/images/winscreen.png")
+
     while running:
         # Test for quit
         for event in pygame.event.get():
@@ -35,13 +37,19 @@ def main():
                 running = False
             elif event.type == pygame.KEYDOWN:
                 player.update(level, event.key)
+            elif event.type == pygame.MOUSEBUTTONDOWN and player.won():
+                if pygame.mouse.get_pressed()[0]:
+                    running = False
 
         SCREEN.fill((100, 100, 200))
 
-        # Draw things
-        level.draw_background(SCREEN)
-        player.draw(SCREEN)
-        level.draw_text_box(SCREEN)
+        if player.won():
+            SCREEN.blit(win_image, (0, 0))
+        else:
+            # Draw things
+            level.draw_background(SCREEN)
+            player.draw(SCREEN)
+            level.draw_text_box(SCREEN)
 
         # Update the display
         pygame.display.flip()
