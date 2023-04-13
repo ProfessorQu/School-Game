@@ -1,4 +1,4 @@
-from typing import Union
+from typing import List
 import pygame
 from pygame import Vector2
 from src.utils.constants import *
@@ -52,14 +52,14 @@ class NPC:
         self.current_line = None
 
 
-    def get_line(self, player) -> str:
+    def get_line(self, player) -> bool:
         """Get the current line of the npc
 
         Args:
             player (Player): the player
 
         Returns:
-            str: the line
+            bool: whether the player has the correct item
         """
         has_item, self.current_line = self.dialogue.get_current_line(player.items)
 
@@ -68,14 +68,14 @@ class NPC:
             if self.dialogue.get_item:
                 player.items.append(self.dialogue.get_item)
 
-        return self.current_line.text
+        return has_item
 
 
     def play_voiceline(self):
         """Play the voiceline
         """
         self.current_line.play_voiceline()
-    
+
 
     def draw(self, screen: pygame.Surface):
         """Draws the player to the screen

@@ -82,10 +82,10 @@ class Player:
         # Get npc
         if npc := level.current_room.get_npc(new_position):
             level.current_npc = npc
-            level.current_npc.get_line(self)
+            has_item = level.current_npc.get_line(self)
             npc.play_voiceline()
 
-            if npc.should_destroy:
+            if has_item and npc.should_destroy:
                 level.current_room.npcs.remove(npc)
                 level.current_npc = None
             
