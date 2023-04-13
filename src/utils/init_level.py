@@ -61,7 +61,7 @@ def init_level() -> Level:
                     NPC(7, 7, "Heroine",
                             "heroine_placeholder",
                             "heroine",
-                            "HAHA NIEMAND GAAT DIT ZIEN!!!!!!!!!!!!!!!",
+                            "Het is heroine! Misschien wil iemand dit wel...",
                             "Hahaha niemand gaat dit zien",
                             True
                     )
