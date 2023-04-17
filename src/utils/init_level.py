@@ -14,7 +14,8 @@ def init_level() -> Level:
                             "okselhaar",
                             "Joost stinkt",
                             "Niemand gaat dit zien",
-                            "Ik zag Joost ervandoor gaan met je fietssleutel.\nZoek de heroine! Loop naar links uit deze kamer\nom het te vinden!"
+                            "Ik zag Joost ervandoor gaan met je fietssleutel.\nZoek de heroine! Loop naar links uit deze kamer\nom het te vinden!",
+                            True
                     )
                 ]
             ),
@@ -34,6 +35,7 @@ def init_level() -> Level:
                             None,
                             "De deur gaat open",
                             "De deur zit dicht",
+                            False,
                             True
                     ),
                     
@@ -53,7 +55,8 @@ def init_level() -> Level:
                             "knijptang_placeholder",
                             "knijptang",
                             "Houd de dief!",
-                            "Houd de dief!"
+                            "Houd de dief!",
+                            True
                     )
                 ]),
             Room(1, 1, True, True, True, False, [],
@@ -63,6 +66,7 @@ def init_level() -> Level:
                             "heroine",
                             "Het is heroine! Misschien wil iemand dit wel...",
                             "Hahaha niemand gaat dit zien",
+                            True,
                             True
                     )
                 ])
