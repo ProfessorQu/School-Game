@@ -13,7 +13,7 @@ class NPC:
 
     def __init__(
             self, x: int, y: int, name: str,
-            has_item: str, get_item: str, has_text: str, get_text: str,
+            has_item: str, get_item: str, has_item_text: str, get_item_text: str,
             single_voiceline: bool = False,
             should_destroy: bool = False
         ):
@@ -39,22 +39,22 @@ class NPC:
         self.image = pygame.transform.scale(image, (TILE_SIZE, TILE_SIZE)).convert_alpha()
 
         if get_item is not None:
-            has_text += f"\n{{{get_item.capitalize()} gekregen}}"
+            has_item_text += f"\n{{{get_item.capitalize()} gekregen}}"
 
         # Set the dialogue
         if single_voiceline:
             self.dialogue = Dialogue(
                 has_item,
                 get_item,
-                Line(has_text, self.name),
-                Line(get_text, self.name),
+                Line(has_item_text, self.name),
+                Line(get_item_text, self.name),
             )
         else:
             self.dialogue = Dialogue(
                 has_item,
                 get_item,
-                Line(has_text, f"{self.name}_wel"),
-                Line(get_text, f"{self.name}_niet"),
+                Line(has_item_text, f"{self.name}_wel"),
+                Line(get_item_text, f"{self.name}_niet"),
             )
 
         # Should destroy if you have the correct item

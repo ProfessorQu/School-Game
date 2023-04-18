@@ -19,7 +19,9 @@ def main():
     pygame.mixer.music.load("assets/sounds/backgroundmusic.ogg")
     # Loop music
     pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_volume(0.1)
+    pygame.mixer.music.set_volume(0.5)
+
+    win_music = False
 
     pygame.display.set_caption("School game")
 
@@ -44,6 +46,16 @@ def main():
 
         if player.won():
             SCREEN.blit(win_image, (0, 0))
+
+            if not win_music:
+                pygame.mixer.music.stop()
+                pygame.mixer.music.unload()
+
+                pygame.mixer.music.load("assets/sounds/winmusic.ogg")
+                # Loop music
+                pygame.mixer.music.play(-1)
+
+                win_music = True
         else:
             # Draw things
             level.draw_background(SCREEN)
